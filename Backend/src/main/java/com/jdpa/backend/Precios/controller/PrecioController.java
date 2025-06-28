@@ -8,6 +8,7 @@ import com.jdpa.backend.Precios.service.PrecioExternoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ import java.util.Optional;
 public class PrecioController {
 
     private final PrecioService precioService;
+    @Autowired
     private final PrecioExternoService externoService;
 
     public PrecioController(PrecioService precioService, PrecioExternoService externoService) {
@@ -52,10 +54,9 @@ public class PrecioController {
     }
 
     @Operation(summary = "Obtener precio internacional actual", description = "Consulta el precio actual del café en dólares desde un proveedor externo")
-    @GetMapping("/externo")
-    public Mono<ResponseEntity<Double>> obtenerPrecioExterno() {
-        return externoService.obtenerPrecioActualUsd()
-                .map(ResponseEntity::ok);
+    @GetMapping("/externo/precio")
+    public String obtenerPrecio() {
+        return externoService.obtenerPrecioCafe(); // ✅ Correcto
     }
 
     @Operation(summary = "Obtener precio local por fecha", description = "Consulta el precio local del café para una fecha específica")
