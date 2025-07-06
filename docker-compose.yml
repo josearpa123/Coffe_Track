@@ -8,3 +8,34 @@ services:
     ports:
       - "8080:8080"
     container_name: coffetrack-backend
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - coffetrack-net
+
+  db:
+    image: postgres:16
+    container_name: coffetrack-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - coffetrack-net
+
+volumes:
+  db_data:
+
+networks:
+  coffetrack-net:
+    driver: bridge
