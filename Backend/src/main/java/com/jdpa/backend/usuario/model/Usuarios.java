@@ -12,8 +12,8 @@ public class Usuarios {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password_hash", nullable = false)
-    private String passwordHash;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String rol;
@@ -21,9 +21,9 @@ public class Usuarios {
     // Constructores
     public Usuarios() {}
 
-    public Usuarios(String username, String passwordHash, String rol) {
+    public Usuarios(String username, String password, String rol) {
         this.username = username;
-        this.passwordHash = passwordHash;
+        this.password = password;
         this.rol = rol;
     }
 
@@ -46,11 +46,11 @@ public class Usuarios {
     }
 
     public String getPasswordHash() {
-        return passwordHash;
+        return password;
     }
 
     public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+        this.password = passwordHash;
     }
 
     public String getRol() {
